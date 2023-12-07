@@ -101,16 +101,19 @@ public class Grammar {
         System.out.println("Start symbol: " + startSymbol);
     }
 
-    public void printProductionForNonTerminal(String nonTerminal){
-        System.out.println("Productions for " + nonTerminal + ": ");
-        for(List<String> rightSide : productions.get(nonTerminal)){
-            for(String value : rightSide){
-                System.out.print(value + " ");
+    public void printProductionsForNonterminal(String nonTerminal) {
+        System.out.println("Productions for " + nonTerminal);
+        StringBuilder rightSide = new StringBuilder();
+        List<List<String>> production = productions.get(nonTerminal);
+        if(production != null)
+            for (List<String> productionRightSide : production) {
+                for (String val : productionRightSide) {
+                    rightSide.append(val).append(" ");
+                }
+                System.out.println(nonTerminal + "->" + rightSide);
+                rightSide.setLength(0);
             }
-            System.out.print("| ");
-        }
-        System.out.println();
+        else
+            System.out.println("No productions for " + nonTerminal);
     }
-
-
 }
