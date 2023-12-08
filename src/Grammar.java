@@ -1,14 +1,13 @@
 import java.io.BufferedReader;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.*;
 
 public class Grammar {
-    private List<String> nonTerminals;
-    private List<String> terminals;
+    private final List<String> nonTerminals;
+    private final List<String> terminals;
     private String startSymbol;
-    private Map<String, List<List<String>>> productions;
+    private final Map<String, List<List<String>>> productions;
 
     public Grammar() {
         nonTerminals = new ArrayList<>();

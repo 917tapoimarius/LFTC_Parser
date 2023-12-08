@@ -1,0 +1,23 @@
+@startuml
+class Main {
+    +printGrammarMenu(): void
+    +main(args: String[]): void
+}
+
+class Grammar {
+  -nonTerminals: List<String>
+  -terminals: List<String>
+  -startSymbol: String
+  -productions: Map<String, List<List<String>>>
+  +Grammar()
+  +readFile(filename: String): void
+  +checkCFG(): boolean
+  +printNonTerminals(): void
+  +printTerminals(): void
+  +printProductions(): void
+  +printStartSymbol(): void
+  +printProductionsForNonterminal(): void
+}
+
+Main --o Grammar
+@enduml
