@@ -1,5 +1,4 @@
-import java.util.Objects;
-import java.util.Scanner;
+import java.util.*;
 
 public class Main {
 
@@ -10,13 +9,14 @@ public class Main {
         System.out.println("4 - Print the Start Symbol");
         System.out.println("5 - CFG check");
         System.out.println("6 - Check sequence of nonterminal");
+        System.out.println("7 - Parse a sequence");
         System.out.println("0 - EXIT");
     }
     public static void main(String[] args) {
         printGrammarMenu();
         Grammar g = new Grammar();
         // g.readFile("src/g1.txt");
-        g.readFile("src/g2.txt");
+        g.readFile("src/g3.txt");
         Scanner scanner = new Scanner(System.in);
         System.out.println("Select:");
         String option = scanner.nextLine();
@@ -47,6 +47,17 @@ public class Main {
                     System.out.println("Input the nonterminal:");
                     String nonTerminal = scanner.nextLine();
                     g.printProductionsForNonterminal(nonTerminal);
+                    break;
+
+                case "7":
+                    DescendentRecursiveParser parser = new DescendentRecursiveParser(g);
+                    System.out.println("Input the sequence:");
+                    String sequence = scanner.nextLine();
+                    boolean isValid = parser.checkSequence(Arrays.asList(sequence.split("\\s+")));
+                    if (isValid)
+                        System.out.println("Parser result: true");
+                    else
+                        System.out.println("Parser result: false");
                     break;
                 default:
                     System.out.println("Invalid option");

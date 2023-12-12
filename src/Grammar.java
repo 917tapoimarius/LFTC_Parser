@@ -15,6 +15,26 @@ public class Grammar {
         productions = new HashMap<>();
     }
 
+    public String getStartSymbol() {
+        return startSymbol;
+    }
+
+    public List<String> getNonTerminals() {
+        return nonTerminals;
+    }
+
+    public List<String> getTerminals() {
+        return terminals;
+    }
+
+    public Map<String, List<List<String>>> getProductions() {
+        return productions;
+    }
+    public List<List<String>> getProductionForNonterminal(String nonterminal) {
+        return productions.get(nonterminal);
+    }
+
+
     public void readFile(String filename){
         String line;
         try(FileReader fileReader = new FileReader(filename); BufferedReader bufferedReader = new BufferedReader(fileReader)){
@@ -114,5 +134,15 @@ public class Grammar {
             }
         else
             System.out.println("No productions for " + nonTerminal);
+    }
+
+    public String getNextProduction(String production, String nonTerminal) { // changes
+        List<List<String>> allProductions = new ArrayList<>(this.getProductionForNonterminal(nonTerminal)); // [[a, S, b, S], [a, S], [c]]
+        for (int i = 0; i < allProductions.size(); i++) {
+            String prod = String.join("", allProductions.get(i));
+            if(prod.equals(production) && i < allProductions.size() - 1)
+                return String.join("", allProductions.get(i+1));
+        }
+        return null;
     }
 }

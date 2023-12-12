@@ -1,8 +1,8 @@
 program compound_statement statement letter digit identifier firstletter letter valid_sequence valid_symbol constant string_constant char_constant integer_constant declist declaration type declaration_and_assign_statement constant type1 assign_statement expression array_element array_declaration statement_list simple_statement structured_statement io_statement priority2_operator priority1_operator term factor if_statement while_statement condition relation comment
 A B C D E F G H I J K L M N O P Q R S T U V W X Y Z a b c d e f g h i j k l m n o p q r s t u v w x y z 0 1 2 3 4 5 6 7 8 9 _ ; : , + - * / % = < <= > >= == != # { } [ ] ( ) int char string list() if else and or while return " ' space read write
 program
-program -> compound_statement
-program -> program compound_statement
+program -> { compound_statement }
+program -> { program compound_statement }
 letter -> A
 letter -> B
 letter -> C
