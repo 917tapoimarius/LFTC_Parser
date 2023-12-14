@@ -1,6 +1,6 @@
 import java.util.*;
 
-public class DescendentRecursiveParser {
+public class RecursiveDescendentParser {
     private final Grammar grammar;
     private final List<List<String>> working;
     private final List<String> input;
@@ -11,7 +11,7 @@ public class DescendentRecursiveParser {
     private final boolean leftRecursive;
 
 
-    public DescendentRecursiveParser(Grammar grammar) {
+    public RecursiveDescendentParser(Grammar grammar) {
         this.grammar = grammar;
         this.working = new ArrayList<>(); // alpha
         this.input = new ArrayList<>(); // beta

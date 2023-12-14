@@ -17,7 +17,35 @@ class Grammar {
   +printProductions(): void
   +printStartSymbol(): void
   +printProductionsForNonterminal(): void
+  +getStartSymbol(): String
+  +getNonTerminals(): List<String>
+  +getTerminals(): List<String>
+  +getProductions(): Map<String, List<List<String>>>
+  +getProductionForNonterminal(nonterminal: String): String
+  +getNextProduction(production: String, nonTerminal: String): String
 }
 
-Main --o Grammar
+class RecursiveDescendentParser {
+    - grammar: Grammar
+    - working: List<List<String>>
+    - input: List<String>
+    - state: String
+    - sequence: List<String>
+    - index: int
+    - depth: int
+    - leftRecursive: boolean
+    + RecursiveDescendentParser(grammar: Grammar)
+    + checkGrammarLeftRecursive(): boolean
+    + momentaryInsuccess(): void
+    + success(): void
+    + advance(): void
+    + expand(): void
+    + back(): void
+    + anotherTry(): void
+    + checkSequence(sequence: List<String>): boolean
+    - getModel(): void
+}
+
+Main *-- Grammar
+Grammar *-- RecursiveDescendentParser
 @enduml

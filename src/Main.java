@@ -50,7 +50,7 @@ public class Main {
                     break;
 
                 case "7":
-                    DescendentRecursiveParser parser = new DescendentRecursiveParser(g);
+                    RecursiveDescendentParser parser = new RecursiveDescendentParser(g);
                     System.out.println("Input the sequence:");
                     String sequence = scanner.nextLine();
                     boolean isValid = parser.checkSequence(Arrays.asList(sequence.split("\\s+")));
