@@ -7,7 +7,7 @@ public class RecursiveDescendentParser {
     private String state;
     private List<String> sequence;
     private int index;
-    private int depth = 0;
+    private int depth;
     private final boolean leftRecursive;
 
 
