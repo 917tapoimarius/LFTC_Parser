@@ -1,3 +1,4 @@
+import java.io.IOException;
 import java.util.*;
 
 public class RecursiveDescendentParser {
@@ -114,7 +115,10 @@ public class RecursiveDescendentParser {
             this.input.addAll(0, List.of(next.split("")));
         } else if (index == 0 && lastProduction.get(0).equals(grammar.getStartSymbol())) {
             System.out.println("Changing state to ERROR");
-            System.out.println("Error for term " + sequence.get(depth) + " (index = " + (depth + 1) + ")");
+            if ( depth >= sequence.size())
+                System.out.println("Error, length of sequence is smaller than the depth, " + (depth + 1) );
+            else
+                System.out.println("Error for term " + sequence.get(depth) + " (index = " + (depth + 1) + ")");
             state = "e";
         } else {
             System.out.println("_______________________________________________________________________________");
@@ -172,6 +176,14 @@ public class RecursiveDescendentParser {
             System.out.println("Sequence is not accepted, Error");
         } else {
             System.out.println("Sequence is accepted");
+            ParserOutput parserOutput = new ParserOutput(grammar, working);
+            parserOutput.parsingTable();
+            try {
+                parserOutput.printParsingTable();
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+
         }
         return true;
     }
