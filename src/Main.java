@@ -1,3 +1,5 @@
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.*;
 
 public class Main {
@@ -10,9 +12,10 @@ public class Main {
         System.out.println("5 - CFG check");
         System.out.println("6 - Check sequence of nonterminal");
         System.out.println("7 - Parse a sequence");
+        System.out.println("8 - Parse a sequence from file");
         System.out.println("0 - EXIT");
     }
-    public static void main(String[] args) {
+    public static void main(String[] args) throws FileNotFoundException {
         printGrammarMenu();
         Grammar g = new Grammar();
         // g.readFile("src/g1.txt");
@@ -55,6 +58,17 @@ public class Main {
                     String sequence = scanner.nextLine();
                     boolean isValid = parser.checkSequence(Arrays.asList(sequence.split("\\s+")));
                     if (isValid)
+                        System.out.println("Parser result: true");
+                    else
+                        System.out.println("Parser result: false");
+                    break;
+                case "8":
+                    RecursiveDescendentParser fileParser = new RecursiveDescendentParser(g);
+                    Scanner fileScanner = new Scanner(new File("src/seq.txt"));
+                    //Scanner fileScanner = new Scanner(new File("parser.out"));
+                    String inputSequence = fileScanner.nextLine();
+                    boolean isInputValid = fileParser.checkSequence(Arrays.asList(inputSequence.split("\\s+")));
+                    if (isInputValid)
                         System.out.println("Parser result: true");
                     else
                         System.out.println("Parser result: false");
