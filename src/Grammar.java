@@ -15,26 +15,6 @@ public class Grammar {
         productions = new HashMap<>();
     }
 
-    public String getStartSymbol() {
-        return startSymbol;
-    }
-
-    public List<String> getNonTerminals() {
-        return nonTerminals;
-    }
-
-    public List<String> getTerminals() {
-        return terminals;
-    }
-
-    public Map<String, List<List<String>>> getProductions() {
-        return productions;
-    }
-    public List<List<String>> getProductionForNonterminal(String nonterminal) {
-        return productions.get(nonterminal);
-    }
-
-
     public void readFile(String filename){
         String line;
         try(FileReader fileReader = new FileReader(filename); BufferedReader bufferedReader = new BufferedReader(fileReader)){
@@ -136,13 +116,40 @@ public class Grammar {
             System.out.println("No productions for " + nonTerminal);
     }
 
-    public String getNextProduction(String production, String nonTerminal) { // changes
-        List<List<String>> allProductions = new ArrayList<>(this.getProductionForNonterminal(nonTerminal)); // [[a, S, b, S], [a, S], [c]]
+    public List<List<String>> getProductionForNonterminal(String nonterminal) {
+        return productions.get(nonterminal);
+    }
+
+    public String getStartSymbol() {
+        return startSymbol;
+    }
+
+    public List<String> getNonTerminals() {
+        return nonTerminals;
+    }
+
+    public List<String> getTerminals() {
+        return terminals;
+    }
+    public List<String> getNextProduction(String production, String nonTerminal) { // changes
+
+//        System.out.println( production);
+        List<List<String>> allProductions = new ArrayList<>( getProductionForNonterminal(nonTerminal)); // [[a, S, b, S], [a, S], [c]]
+//        System.out.println("MARRRCH");
+//        System.out.println(allProductions);
         for (int i = 0; i < allProductions.size(); i++) {
             String prod = String.join("", allProductions.get(i));
+//            System.out.println(prod);
+//            System.out.println(prod.equals(production));
+//            System.out.println(production);
+//            System.out.println(allProductions.size() - 1);
             if(prod.equals(production) && i < allProductions.size() - 1)
-                return String.join("", allProductions.get(i+1));
+                return allProductions.get(i+1);
         }
         return null;
+    }
+
+    public Map<String, List<List<String>>> getProductions() {
+        return productions;
     }
 }

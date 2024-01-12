@@ -1,5 +1,4 @@
-import java.io.File;
-import java.io.FileNotFoundException;
+import java.io.*;
 import java.util.*;
 
 public class Main {
@@ -13,13 +12,15 @@ public class Main {
         System.out.println("6 - Check sequence of nonterminal");
         System.out.println("7 - Parse a sequence");
         System.out.println("8 - Parse a sequence from file");
+        System.out.println("9 - Parse from file using PIF");
         System.out.println("0 - EXIT");
     }
-    public static void main(String[] args) throws FileNotFoundException {
+    public static void main(String[] args) throws IOException {
         printGrammarMenu();
         Grammar g = new Grammar();
-        // g.readFile("src/g1.txt");
-        g.readFile("src/g3.txt");
+        // g.readFile("src/g1.txt")
+         g.readFile("src/g2.txt");
+        // g.readFile("src/g3.txt");
         Scanner scanner = new Scanner(System.in);
         System.out.println("Select:");
         String option = scanner.nextLine();
@@ -64,8 +65,8 @@ public class Main {
                     break;
                 case "8":
                     RecursiveDescendentParser fileParser = new RecursiveDescendentParser(g);
+                    // Scanner fileScanner = new Scanner(new File("src/parse.out"));
                     Scanner fileScanner = new Scanner(new File("src/seq.txt"));
-                    //Scanner fileScanner = new Scanner(new File("parser.out"));
                     String inputSequence = fileScanner.nextLine();
                     boolean isInputValid = fileParser.checkSequence(Arrays.asList(inputSequence.split("\\s+")));
                     if (isInputValid)
@@ -75,6 +76,32 @@ public class Main {
                     break;
                 default:
                     System.out.println("Invalid option");
+                    break;
+                case "9":
+                    SymbolTable st = new SymbolTable(30);
+                    st.addSym("Result");
+                    System.out.println(st);
+                    MyScanner s = new MyScanner("src/prog_seq.txt");
+                    s.scan();
+                    RecursiveDescendentParser pif_parser = new RecursiveDescendentParser(g);
+                    List<String> seq = new ArrayList<>();
+                    BufferedReader reader = new BufferedReader(new FileReader( "PIF.out"));
+                    String line = reader.readLine();
+                    while(line != null){
+                        seq.add(line.split("=>")[0].strip());
+                        line = reader.readLine();
+                    }
+                    System.out.println(seq);
+
+                    Scanner pif_fileScanner = new Scanner(new File("src/seq.txt"));
+
+                    String pif_inputSequence = pif_fileScanner.nextLine();
+                    System.out.println(pif_inputSequence);
+                    boolean pif_isValid = pif_parser.checkSequence(seq);
+                    if (pif_isValid)
+                        System.out.println("Parser result: true");
+                    else
+                        System.out.println("Parser result: false");
                     break;
 
             }

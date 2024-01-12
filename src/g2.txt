@@ -1,131 +1,39 @@
-program compound_statement statement letter digit identifier firstletter letter valid_sequence valid_symbol constant string_constant char_constant integer_constant declist declaration type declaration_and_assign_statement constant type1 assign_statement expression array_element array_declaration statement_list simple_statement structured_statement io_statement priority2_operator priority1_operator term factor if_statement while_statement condition relation comment
-A B C D E F G H I J K L M N O P Q R S T U V W X Y Z a b c d e f g h i j k l m n o p q r s t u v w x y z 0 1 2 3 4 5 6 7 8 9 _ ; : , + - * / % = < <= > >= == != # { } [ ] ( ) int char string list() if else and or while return " ' space read write
+program cmpdstmt statement declarationStmt declarationArray assignment ifStmt type declarationList validString expression declareMore integerExpression StringExpression integerEq stringExpression sentence conditional declareMoreIds sign nextstmt
+# int char ; = , + - * / % if < > ( ) EQ NE LT LE GT NE [ ] { } || && " ' . read write display else shots cascade id intConstant stringConstant
 program
-program -> { compound_statement }
-program -> { program compound_statement }
-letter -> A
-letter -> B
-letter -> C
-letter -> D
-letter -> E
-letter -> F
-letter -> G
-letter -> H
-letter -> I
-letter -> J
-letter -> K
-letter -> L
-letter -> M
-letter -> N
-letter -> O
-letter -> P
-letter -> Q
-letter -> R
-letter -> S
-letter -> T
-letter -> U
-letter -> V
-letter -> W
-letter -> X
-letter -> Y
-letter -> Z
-letter -> a
-letter -> b
-letter -> c
-letter -> d
-letter -> e
-letter -> f
-letter -> g
-letter -> h
-letter -> i
-letter -> j
-letter -> k
-letter -> l
-letter -> m
-letter -> n
-letter -> o
-letter -> p
-letter -> q
-letter -> r
-letter -> s
-letter -> t
-letter -> u
-letter -> v
-letter -> w
-letter -> x
-letter -> y
-letter -> z
-digit -> 0
-digit -> 1
-digit -> 2
-digit -> 3
-digit -> 4
-digit -> 5
-digit -> 6
-digit -> 7
-digit -> 8
-digit -> 9
-identifier -> firstletter valid_sequence
-firstletter -> letter
-firstletter -> _
-valid_sequence -> valid_symbol valid_sequence
-valid_symbol -> letter
-valid_symbol -> digit
-valid_symbol -> _
-constant -> integer_constant
-constant -> string_constant
-constant -> char_constant
-declist -> declaration
-declist -> declaration , declist
-declaration -> type identifier
-declaration -> declaration_and_assign_statement
-declaration_and_assign_statement -> type identifier = constant
-type1 -> int
-type1 -> char
-type1 -> string
-assign_statement -> identifier = expression
-assign_statement -> array_element = expression
-array_declaration -> declaration = list()
-array_element -> identifier [ integer_constant ]
-type -> type1
-type -> array_declaration
-compound_statement -> { statement_list }
-statement_list -> statement ;
-statement_list -> statement ; statement_list
-statement -> declaration
-statement -> simple_statement
-statement -> structured_statement
-simple_statement -> assign_statement
-simple_statement -> io_statement
-io_statement -> read ( identifier )
-io_statement -> write ( identifier )
-priority2_operator -> +
-priority2_operator -> -
-priority1_operator -> /
-priority1_operator -> *
-priority1_operator -> %
-expression -> term
-expression -> term priority1_operator term
-term -> factor
-term -> factor priority2_operator factor
-factor -> identifier
-factor -> constant
-factor -> ( expression )
-structured_statement -> compound_statement
-structured_statement -> if_statement
-structured_statement -> while_statement
-while_statement -> while ( condition ) { statement_list }
-if_statement -> if ( condition ) { statement_list }
-if_statement -> if ( condition ) { statement_list } else { statement_list }
-if_statement -> if ( condition ) { statement_list } else if_statement
-condition -> expression
-condition -> expression relation condition
-relation -> <
-relation -> <=
-relation -> ==
-relation -> !=
-relation -> >=
-relation -> >
-relation -> and
-relation -> or
-comment -> # string #
+program -> # cmpdstmt #
+cmpdstmt -> statement ;
+cmpdstmt -> statement ; nextstmt
+nextstmt -> cmpdstmt
+statement -> declarationStmt
+statement -> assignment
+statement -> ifStmt
+type -> int
+type -> char
+declarationStmt -> type declarationList
+declarationList -> id
+declarationList -> id = expression
+declarationList -> id = expression declareMore
+declareMore -> , expression
+assignment -> id = expression
+expression -> integerExpression
+expression -> stringExpression
+integerExpression -> id
+integerExpression -> intConstant
+integerEq -> intConstant
+stringExpression -> id
+stringExpression -> sentence
+ifStmt -> if ( conditional ) < cmpstmt >
+conditional -> expression EQ expression
+conditional -> expression LT expression
+conditional -> expression LE expression
+conditional -> expression GT expression
+conditional -> expression GE expression
+conditional -> expression NE expression
+conditional -> expression == expression
+sign -> +
+sign -> -
+sentence -> " intConstant "
+sentence -> " id "
+sentence -> "stringConstant"
+sentence -> "  "

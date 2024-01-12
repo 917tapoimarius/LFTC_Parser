@@ -33,27 +33,38 @@ public class ParserOutput {
         if (productions.isEmpty())
             root = new Node("empty");
         else {
-            int productionIndex = 0;
-            this.root = new Node(productions.get(productionIndex).get(0));
+            int prodIndex = 0;
+            this.root = new Node(productions.get(prodIndex).get(0));
             this.root.index = 1;
             this.root.parent = 0;
             this.root.rightSibling = 0;
             tree.add(this.root);
-            parseTableRecursive(root, productions, productionIndex);
+            parseTableRecursive(root, productions, prodIndex);
+
 
         }
     }
 
 
-    private int parseTableRecursive(Node parent, List<List<String>>productions, int productionIndex){
-        if (productionIndex == productions.size())
-            return productionIndex;
+    private int parseTableRecursive(Node parent, List<List<String>>productions, int prodIndex){
+//        System.out.println(productions.size());
+//        System.out.println(prodIndex);
+//        System.out.println("REAAAF");
+        if (prodIndex == productions.size())
+            return productions.size();
+//        System.out.println(productions);
 
-        String production = productions.get(productionIndex).get(1); //RIGHT side
-        System.out.println("production = " + production);
+//        String NewString = String.join("", lastProduction);
+//        NewString= NewString.substring(1);
+//        System.out.println(productions.get(prodIndex));
+        List<String> prod = productions.get(prodIndex); //RIGHT side
+        prod = prod.subList(1, prod.size());
+//        System.out.println(prod);
+        System.out.println("prod = " + prod);
         Node rightSibling = null;
-        for( int i = 0; i< production.length(); i++){
-            String term = String.valueOf(production.charAt(i));
+
+        for (String s : prod) {
+            String term = String.valueOf(s);
             System.out.println("term = " + term);
 
             Node newChild = new Node(term);
@@ -61,17 +72,17 @@ public class ParserOutput {
             newChild.index = nodeIndex;
             newChild.parent = parent.index;
 
-            if (rightSibling != null){
+            if (rightSibling != null) {
                 newChild.rightSibling = rightSibling.index;
             }
 
             tree.add(newChild);
             rightSibling = newChild;
 
-            if(grammar.getNonTerminals().contains(term))
-                productionIndex = parseTableRecursive(newChild, productions, productionIndex + 1);
+            if (grammar.getNonTerminals().contains(term))
+                prodIndex = parseTableRecursive(newChild, productions, prodIndex + 1);
         }
-        return productionIndex;
+        return  prodIndex;
     }
 
     public void printParsingTable() throws IOException{
@@ -84,7 +95,7 @@ public class ParserOutput {
     private void printParsingTableToFile() throws IOException{
         FileWriter fileWriter = new FileWriter("parsingTreeTableOutput.txt");
         for (Node node : tree) {
-            fileWriter.append(node.toString());
+            fileWriter.append(node.toString()).append("\n");
         }
         fileWriter.close();
     }

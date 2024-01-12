@@ -82,15 +82,29 @@ public class RecursiveDescendentParser {
      */
     private void expand(){
         System.out.println("Expand");
+        System.out.println(this.input);
         String nonTerminal = input.remove(0);
         List<String> newProduction = grammar.getProductionForNonterminal(nonTerminal).get(0);
-        this.working.add(new ArrayList<>((List.of(nonTerminal, String.join("", newProduction)))));
+//        this.working.add(new ArrayList<>((List.of(nonTerminal, String.join("", newProduction)))));
+        List<String> tempArray = new ArrayList<>();
+        tempArray.add( nonTerminal);
+
+        tempArray.addAll(newProduction);
+//        System.out.println("RAWSDSA");
+//        System.out.println(tempArray);
+//        for (String s : tempArray)
+//            System.out.println(s);
+
+        this.working.add(tempArray);
+//        System.out.println("RAAAAAAAAA");
+//        System.out.println(List.of(nonTerminal,  newProduction));
         input.addAll(0, newProduction);
     }
 
     public void back() {
         System.out.println("Back");
         String terminal = this.working.get(this.working.size()-1).get(0);
+
         this.input.add(0, terminal);
         this.working.remove(this.working.size()-1);
         index--;
@@ -98,21 +112,55 @@ public class RecursiveDescendentParser {
 
     public void anotherTry() {
         System.out.println("Another try");
-
         List<String> lastProduction = this.working.get(working.size() - 1);
-        String nonTerminal = lastProduction.get(0);
 
-        String next = this.grammar.getNextProduction(lastProduction.get(1), nonTerminal);
+//        System.out.println("RAAAAAAAAAARRRRRRRR");
+//        System.out.println(lastProduction);
+        String nonTerminal = lastProduction.get(0);
+        //System.out.println(lastProduction.get(1));
+//        System.out.println(lastProduction.get(1));
+        String NewString = String.join("", lastProduction);
+        NewString= NewString.substring(nonTerminal.length());
+
+        List<String> next = this.grammar.getNextProduction(NewString, nonTerminal);
+
         //System.out.println("NEXT: " + next + "   LAST PROD: " + lastProduction);
         if (next != null) {
             System.out.println("Changing state to NORMAL");
             this.state = "q";
+//            System.out.println(this.working.size() -1);
+//            System.out.println(List.of(nonTerminal, String.join("", next)));
+//
+//            System.out.println(this.working);
             this.working.remove(this.working.size() - 1);
-            this.working.add(new ArrayList<>(List.of(nonTerminal, String.join("", next))));
+//            System.out.println(this.working);
+            List<String> tempArray = new ArrayList<>();
+            tempArray.add(nonTerminal);
+            tempArray.addAll(next);
+            this.working.add(tempArray);
+//            this.working.add(new ArrayList<>(List.of(nonTerminal, String.join("", next))));
 
+            //System.out.println("TEST");
+//            System.out.println(this.working);
+//            System.out.println(this.working.get(working.size()-1));
+//            System.out.println( lastProduction.size());
+//            System.out.println(lastProduction);
+//            System.out.println( this.input);
+////            System.out.println(lastProduction);
+//            NewString = String.join("", lastProduction);
+//            NewString= NewString.substring(nonTerminal.length());
+//            System.out.println(this.input.subList(1, lastProduction.size()));
+//            System.out.println(this.input.subList(1, lastProduction.size()).size());
+
+//            System.out.println(next);
+//            System.out.println( NewString);
+//            System.out.println(lastProduction);
+//            System.out.println(this.input.subList(0, lastProduction.size()-1));
+//
+//            System.out.println(this.input.subList(0,3));
             // Clear the input stack and add the new sequence
-            this.input.subList(0, lastProduction.get(1).length()).clear();
-            this.input.addAll(0, List.of(next.split("")));
+            this.input.subList(0, lastProduction.size()-1).clear();
+            this.input.addAll(0, next);
         } else if (index == 0 && lastProduction.get(0).equals(grammar.getStartSymbol())) {
             System.out.println("Changing state to ERROR");
             if ( depth >= sequence.size())
@@ -125,8 +173,14 @@ public class RecursiveDescendentParser {
             this.working.remove(this.working.size() - 1);
 
             // Clear the input stack and add the last production
-            this.input.subList(0, lastProduction.get(1).length()).clear();
-            this.input.addAll(0, List.of(lastProduction.get(1).split("")));
+//            System.out.println("RAAAAAAAAAA");
+//            System.out.println(lastProduction.get(1));
+//            System.out.println(this.input);
+//            System.out.println(lastProduction.get(1).length());
+//            System.out.println(this.input.size());
+            lastProduction.remove(1);
+            this.input.subList(0, lastProduction.size()).clear();
+            this.input.addAll(0, lastProduction);
         }
     }
 

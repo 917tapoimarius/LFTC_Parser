@@ -1,10 +1,12 @@
+
+
 public class Node {
     String info;
     int parent;
     int index;
     int rightSibling;
 
-    public Node(String info){
+    public Node(String  info){
         this.info = info;
         this.parent = -1;
         this.index = 0;

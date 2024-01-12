@@ -1,0 +1,30 @@
+index 1 info program parent 0 right Sibling 0
+
+index 2 info # parent 1 right Sibling 0
+
+index 3 info cmpdstmt parent 1 right Sibling 2
+
+index 4 info statement parent 3 right Sibling 0
+
+index 5 info declarationStmt parent 4 right Sibling 0
+
+index 6 info type parent 5 right Sibling 0
+
+index 7 info int parent 6 right Sibling 0
+
+index 8 info declarationList parent 5 right Sibling 6
+
+index 9 info id parent 8 right Sibling 0
+
+index 10 info = parent 8 right Sibling 9
+
+index 11 info expression parent 8 right Sibling 10
+
+index 12 info integerExpression parent 11 right Sibling 0
+
+index 13 info intConstant parent 12 right Sibling 0
+
+index 14 info ; parent 3 right Sibling 4
+
+index 15 info # parent 1 right Sibling 3
+
